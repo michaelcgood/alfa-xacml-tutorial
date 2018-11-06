@@ -1,2 +1,2 @@
 # Tutorial
-A basic demonstration using ALFA written by mark colleague named Mark. 
+A basic demonstration of ALFA written by my colleague named Mark. 
