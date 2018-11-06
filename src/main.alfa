@@ -1,0 +1,58 @@
+namespace tutorial {
+
+import Attributes.*	
+import tutorial.attributes.*
+
+/*
+ * The Main Policyset
+ */
+policyset Main{
+	apply firstApplicable
+	/*
+	 * Master APS Tutorial policy
+	 */
+	policy tutorialRecords{
+		target clause stringEqualIgnoreCase("record", record.objectType)
+	    apply firstApplicable	
+	    
+	    /*
+	     * R1 - A manager can view any records
+	     */
+	    rule managersCanView{
+	    	permit
+	    	target clause action.actionId == "view" and user.role == "manager"
+	    }
+	 
+		 /*
+	     * R2 - An employee can view a record in their own department  
+	     */
+	    rule employeeCanViewIfSameDepartment{
+	    	permit
+	    	target clause action.actionId == "view" and user.role == "employee"
+	    	condition user.department == record.department
+	    } 
+	    
+	    /*
+	     * R3 - An employee can edit a record they own, if it is in draft mode  
+	     */
+	    rule employeeCanEdit{
+	    	permit
+	    	target clause action.actionId == "edit" and user.role == "employee" and record.status == "draft"
+	    	
+	    } 
+	    
+		 /*
+	     * R4 - A manager can publish a record if the record is in final mode 
+	     * and it belongs to a employee below that manager.  
+	     */
+	    rule managerCanPublish{
+	    	permit
+	    	target clause action.actionId == "publish" and user.role == "manager" and record.status == "final"
+	    	condition  stringIsIn( stringOneAndOnly(record.owner) , user.subordinate) 
+	    } 
+	} //tutorialRecords
+} // main
+
+
+
+} // tutorial

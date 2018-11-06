@@ -1,0 +1,71 @@
+namespace tutorial.attributes{
+	
+	namespace user {
+		
+		attribute role {
+        id = "com.acme.user.role"
+        type = string
+        category = subjectCat
+	    }
+	    
+	    attribute subordinate {
+        id = "com.acme.user.subordinate"
+        type = string
+        category = subjectCat
+	    }
+
+		attribute department {
+        id = "com.acme.user.department"
+        type = string
+        category = subjectCat
+	    }
+
+		attribute employeeId {
+        id = "com.acme.user.employeeId"
+        type = string
+        category = subjectCat
+	    }
+	} // user namespace
+	
+    namespace record {
+		
+		attribute department {
+        id = "com.acme.record.department"
+        type = string
+        category = resourceCat
+	    }
+
+		attribute owner {
+        id = "com.acme.record.owner"
+        type = string
+        category = resourceCat
+	    }
+	    
+		attribute recordId {
+        id = "com.acme.record.recordId"
+        type = string
+        category = resourceCat
+	    }
+	    
+		attribute objectType {
+        id = "com.acme.record.objectType"
+        type = string
+        category = resourceCat
+	    }
+	    
+	    attribute status {
+        id = "com.acme.record.status"
+        type = string
+        category = resourceCat
+	    }
+	
+	} // record namespace
+	
+	namespace action {
+		attribute actionId {
+        id = "com.acme.action.actionId"
+        type = string
+        category = actionCat
+	    }
+    }  // action namespace
+}

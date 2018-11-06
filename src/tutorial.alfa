@@ -1,0 +1,60 @@
+namespace tutorial {
+	import tutorial.attributes.*
+	
+	/*
+	 * Main
+	 */
+	policyset main{
+		apply firstApplicable
+		
+		/*
+		 * Object type records
+		 */
+		policyset records{
+			target clause record.objectType == "record"
+			apply firstApplicable
+			
+			policyset managers{
+				target clause user.role == "manager"
+				apply firstApplicable
+				
+				policy managersView{
+					target clause action.actionId == "view"
+					apply firstApplicable
+					
+					/*
+					 * Managers can view all records
+					 */
+					rule managersCanView{
+						permit
+					}
+					
+				}
+			}
+			/*
+			 * These 
+			 */
+			policyset employees{
+				target clause user.role == "employee"
+				apply firstApplicable
+				
+				policy employeesViewRecords {
+					target clause action.actionId == "view"
+					apply firstApplicable
+					
+					/*
+					 * Employees can view records in their department
+					 */
+					rule employeesCanViewRecordsInTheirDept{
+						permit
+						condition user.department == record.department
+					}
+					
+					
+				}
+				
+			}	
+		}
+		
+	}
+}
